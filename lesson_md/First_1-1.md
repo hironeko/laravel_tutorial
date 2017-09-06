@@ -17,7 +17,7 @@ composer create-project laravel/laravel ProjectName
 
 ```shell
 composer global require "laravel/installer"
-laravel new ProjectName --dev
+laravel new ProjectName
 ```
 
 
