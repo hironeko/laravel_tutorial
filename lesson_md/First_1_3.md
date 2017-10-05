@@ -16,14 +16,17 @@ php artisan list
 
 
 ```shell
-php artisan make:controller   # 新しくController Classの作成を行います
-php artisan make:model        # 新しくModel Classの作成を行います
-php artisan migrate           # DBに対してtable情報を反映させる
-php artisan migrate:refresh   # DBに対してmigrateしたのを全部rollbackし再度migrateを行う
-php artisan migrate:reset     # DBに対してmigrateしたものをrollbackする 
-php aritsan migrate:rollback  # 一回ずつrollbackする
-php artisan db:seed           # DBに対してあらかじめ入れたいデータがある場合に実行する
-php artisan migrate --seed    # DBに対してtable情報を反映させつつあらかじめDBにいれたいデータを入れたい場合に使用する
+php artisan make:controller Controller名   # 新しくController Classの作成を行います
+php artisan make:model Model名             # 新しくModel Classの作成を行います
+php artisan make:seeder Table名TableSedder # 新しくSeeder Classの作成を行います
+
+php artisan make:migration create_table名_table # 新しくMigration fileを作成します
+php artisan migrate                             # DBに対してtable情報を反映させる
+php artisan migrate:refresh                     # DBに対してmigrateしたのを全部rollbackし再度migrateを行う
+php artisan migrate:reset                       # DBに対してmigrateしたものをrollbackする 
+php aritsan migrate:rollback                    # 一回ずつrollbackする
+php artisan db:seed                             # DBに対してあらかじめ入れたいデータがある場合に実行する
+php artisan migrate --seed                      # DBに対してtable情報を反映させつつあらかじめDBにいれたいデータを入れたい場合に使用する
 
 # URIなどの一覧を表示してくれる
 php artisan route:list

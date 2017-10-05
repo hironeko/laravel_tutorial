@@ -126,6 +126,7 @@ Migrated:  201y_mm_dd_xxxxxx_create_todos_table
 php artisan make:seeder make:seeder TodosTableSeeder
 ```
     - 上記コマンド実行することによって*database/seeds/*以下に作成されます
+    - 変更前
 ```php
 <?php
 
@@ -146,3 +147,98 @@ class TodosTableSeeder extends Seeder
 ```
    - fileが上記のような状態かと思います
    - このfileに対して編集を行なっていきます
+   - 変更後
+```php
+<?php
+
+use Illuminate\Database\Seeder;
+
+class TodosTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DB::table('todos')->truncate();
+
+        DB::table('todos')->insert([
+            [
+                'title'      => 'フレームワークカリキュラムを終わらせる',
+                'created_at' => '2018-01-01 23:59:59',
+                'updated_at' => '2018-01-04 23:59:59',
+            ],
+            [
+                'title'      => 'Unixオペレーションに慣れる',
+                'created_at' => '2018-02-01 00:00:00',
+                'updated_at' => '2018-02-05 00:00:00',
+            ],
+        ]);
+    }
+}
+
+```
+  - 上記のように変更が終わったらこの新たに追加したClassを使用するために同じ階層に存在する。*DatabaseSeeder.php*というfileの変更を行います
+  - 変更前
+```php
+<?php
+
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        // $this->call(UsersTableSeeder::class);
+    }
+}
+```
+  - *function run*の中がコメントアウトされている状態かと思います
+  - この*function run*の中に先ほど変更を加えた*Class*を書いてあげます
+  そうすることによって作成したSeederを実行しデータの投入が可能になります
+  - 早速変更を加えます
+  - 変更後
+```php
+<?php
+
+use Illuminate\Database\Seeder;
+
+class DatabaseSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        // $this->call(UsersTableSeeder::class);
+        $this->call(TodosTableSeeder::class); // 追加
+    }
+}
+```
+  - 変更が完了したら作成したfileをDBに反映させるためのコマンドを実行します
+```shell
+php artisan db:seed
+Seeding: TodosTableSeeder
+```
+  - 上記のような表記がされたら問題なくDBに反映が行われています
+
+
+- おまけ
+```shell
+php artisan migrate
+```
+  - を実行した際にもseedを行い余計なコマンドを打ちたくないなという場合
+```shell
+php artisan migrate --seed
+```
+  - を実行することによりmigration fileの実行とseed fileの実行を同時に行うことが可能になります
+  
