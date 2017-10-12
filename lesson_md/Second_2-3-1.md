@@ -128,10 +128,157 @@ touch resource/views/todo/index.blade.php
 </div>
 @endsection <!-- 追記 -->
 ```
+
 追記箇所は、3箇所となります。
 - 以下に出てくる用語の共通点
   - 外部読み込みが可能です。要するに別のfileを読み込み使用することが可能ということです。
-- @yeild
-  - 継承は、できずデフォルト値の設定が可能です。なので今回は、テンプレートになるfileのみに使用し引数として中には、`'content'`と記入することによって次に説明するsectionのfileを読み込み表示することが可能です。
+- @yield
+  - 継承は、できずデフォルト値の設定が可能です。なので今回は、テンプレートになるfileのみに使用し引数として中には、`'content'`と記入することによって次に説明するsectionで宣言された名称のfileを読み込み表示することが可能です。
 - @section
-  - 
+  - 継承ができ、デフォルト値の設定が可能です。おおよその概念としては、yieldに近いですが異なる点として親sectionというものが定義可能です。この場合親として扱われるsectionは、通常のsectionと異なり閉じタグが `@show` となります。※今回は使用しません。
+  - 基本的な使い方としては、ページごとに表示分ける際などに各ページの始まりと終わりに`@section('キーワード')` という書き方ではじめ、終わりに `@endsection` または、 `@stop` と書く必要があります。
+  - `@yield('キーワード')` で該当するキーワードの `@section('キーワード')` のキーワードが一致するfileが読み込まれ表示されます。
+- @include
+  - 今回は、使用しませんがこちらは、継承はできずまたデフォルト値の設定ができません。ただし変数の受け渡しが可能です。
+  - 用途としては、エラー文言の出力など形式、見た目などが同じで値によって表示非表示を行いたい場合に変数を渡しその変数の値を元に表示を行う場合などが想定されます。
+  - もちろん他にも用途は、あげられると思います。
+  
+- 外部fileの読み込み以外にも多くのメソッドが存在します。
+  - `foreach` と `if文` の性質をもつ `@forelse` など便利なメソッドも多くあるので一度公式サイトなどを見てみることをオススメします。
+
+
+
+viewの実装が一旦終わりました。このままブラウザで確認したいのですが現状だとエラーが出ると思います。
+その理由は、実装したviewを表示するための記述をControllerに行なっていないためです。なので表示させるためにControllerの編集を行いましょう。
+
+編集file `app/Http/Controllers/TodoController.php` です
+
+```php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class TodoController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+        //return "Hello world!"; コメントアウト
+        return view('todo.index');  // 追記
+    }
+// 以下省略
+```
+
+これで問題なく表示されます。では早速ブラウザで確認しましょう。
+
+## 同じ方法で他のページの作成も行いましょう。
+
+作成するページが残り2ページです。まずは、記述するためのfileを用意しましょう。
+
+```shell
+touch resources/views/todo/create.blade.php resources/views/todo/edit.blade.php
+```
+
+編集file `resources/views/todo/create.blade.php` です。
+```html
+@extends('layout.app')
+@section('content')
+    <h2 class="page-header">ToDo作成</h2>
+    <form>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="ToDo内容">
+        </div>
+        <button type="submit" class="btn btn-success pull-right">追加</button>
+    </form>
+@endsection
+```
+
+編集file `resources/views/todo/edit.blad.php` です。
+
+```html
+@extends('layout.app')
+@section('content')
+    <h2 class="page-header">ToDo編集</h2>
+    <form >
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="ToDo内容">
+        </div>
+        <button type="submit" class="btn btn-success pull-right">更新</button>
+    </form>
+@endsection
+```
+
+これでviewのfileのベースが出来上がりました。
+
+
+## Viewで使用するFormタグ変更する
+
+Formタグは、Formタグのままでもいいのですがせっかくなのでより便利に扱えるようにしたいと思います。そのためのライブラリが存在してますので導入を行います。
+
+`laravelcollective/html` というものを使用します。
+これを `composer` 経由でinstallします。
+
+```shell
+composer require laravelcollective/html
+```
+実行した後しばらくしたらinstallが始まります。
+
+終わったら各view fileに記載あるFormタグを変えていきます。この際、Formタグ内で使用されているInputタグも書き換えていきます。
+[リファレンス](https://laravelcollective.com/docs/master/html#opening-a-form)
+
+使い方は、リンクに記載ある方法を用いて行います。
+viewのfileを編集する前に導入したものを使用可能にするために設定を行います。
+
+編集file `config/app.php` です。
+
+```php
+  'providers' => [
+    // ...
+    Collective\Html\HtmlServiceProvider::class, // 追記
+    // ...
+  ],
+  'aliases' => [
+    // ...
+      'Form' => Collective\Html\FormFacade::class,  // 追記
+      'Html' => Collective\Html\HtmlFacade::class,  // 追記
+    // ...
+  ],
+```
+
+上記のように変更しましょう。
+これで使えるようになります。ただし `config` 以下のfileを変更した場合は、再起動が必要になります。サーバが立ち上がった時に一度だけ読み込まれる設定fileとなりますので再起動が必要です。
+
+では、実際に書いていきましょう。その後に解説を入れたいと思います。
+
+編集file `resources/views/todo/create.blade.php`
+```html
+    {!! Form::open(['route' => 'todo.store']) !!}
+        <div class="form-group">
+            {!! Form::input('text', 'title', null, ['required', 'class' => 'form-control', 'placeholder' => 'ToDo内容']) !!}
+        </div>
+        <button type="submit" class="btn btn-success pull-right">追加</button>
+    {!! Form::close() !!}
+```
+
+
+
+編集file `resources/views/todo/edit.blade.php`
+```html
+    {!! Form::open(['route' => ['todo.update', $todo->id], 'method' => 'PUT']) !!}
+        <div class="form-group">
+            {!! Form::input('text', 'title', $todo->title, ['required', 'class' => 'form-control']) !!}
+        </div>
+        <button type="submit" class="btn btn-success pull-right">更新</button>
+    {!! Form::close() !!}
+
+```
+上記のようなfileになったら問題ありません。
+
+
