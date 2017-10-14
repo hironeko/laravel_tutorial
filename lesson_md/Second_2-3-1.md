@@ -81,9 +81,9 @@ touch resource/views/todo/index.blade.php
     </style>
 </head>
 <body>
-
-    @yield('content') <!-- 追記 -->
-
+    <div class="container">
+        @yield('content') <!-- 追記 -->
+    </div>
     <!-- Scripts -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
@@ -97,7 +97,7 @@ touch resource/views/todo/index.blade.php
 ```html
 @extends('layout.app') <!-- 追記 -->
 @section('content')  <!-- 追記 -->
-<div class="container">
+
     <h2 class="page-header">ToDo一覧</h2>
 
     <p class="pull-right">
@@ -125,7 +125,6 @@ touch resource/views/todo/index.blade.php
         </tbody>
     </table>
 
-</div>
 @endsection <!-- 追記 -->
 ```
 
@@ -190,6 +189,7 @@ touch resources/views/todo/create.blade.php resources/views/todo/edit.blade.php
 ```html
 @extends('layout.app')
 @section('content')
+
     <h2 class="page-header">ToDo作成</h2>
     <form>
         <div class="form-group">
@@ -197,6 +197,7 @@ touch resources/views/todo/create.blade.php resources/views/todo/edit.blade.php
         </div>
         <button type="submit" class="btn btn-success pull-right">追加</button>
     </form>
+
 @endsection
 ```
 
@@ -205,6 +206,7 @@ touch resources/views/todo/create.blade.php resources/views/todo/edit.blade.php
 ```html
 @extends('layout.app')
 @section('content')
+
     <h2 class="page-header">ToDo編集</h2>
     <form >
         <div class="form-group">
@@ -212,6 +214,7 @@ touch resources/views/todo/create.blade.php resources/views/todo/edit.blade.php
         </div>
         <button type="submit" class="btn btn-success pull-right">更新</button>
     </form>
+
 @endsection
 ```
 
@@ -253,32 +256,47 @@ viewのfileを編集する前に導入したものを使用可能にするため
 ```
 
 上記のように変更しましょう。
-これで使えるようになります。ただし `config` 以下のfileを変更した場合は、再起動が必要になります。サーバが立ち上がった時に一度だけ読み込まれる設定fileとなりますので再起動が必要です。
+これで使えるようになります。ただし `config` 以下のfileを変更した場合は、サーバが立ち上がった時に一度だけ読み込まれる設定fileとなりますので `サーバの再起動` を行いましょう。
 
 では、実際に書いていきましょう。その後に解説を入れたいと思います。
 
 編集file `resources/views/todo/create.blade.php`
 ```html
+<!-- 省略 -->
     {!! Form::open(['route' => 'todo.store']) !!}
         <div class="form-group">
             {!! Form::input('text', 'title', null, ['required', 'class' => 'form-control', 'placeholder' => 'ToDo内容']) !!}
         </div>
         <button type="submit" class="btn btn-success pull-right">追加</button>
     {!! Form::close() !!}
+<!-- 省略 -->
 ```
-
-
 
 編集file `resources/views/todo/edit.blade.php`
 ```html
+<!-- 省略 -->
     {!! Form::open(['route' => ['todo.update', $todo->id], 'method' => 'PUT']) !!}
         <div class="form-group">
             {!! Form::input('text', 'title', $todo->title, ['required', 'class' => 'form-control']) !!}
         </div>
         <button type="submit" class="btn btn-success pull-right">更新</button>
     {!! Form::close() !!}
-
+<!-- 省略 -->
 ```
 上記のようなfileになったら問題ありません。
+
+では、記述した内容に関して解説を加えていきます。
+
+まず、最初に基本となる `Form` タグになるものから
+```html
+{!! Form::open() !!}
+{!! Form::close() !!}
+```
+これを書くことによってFormタグを開始し終了を意味してます。
+注目は、 `open` 以下です。
+
+- `route`  ：これは、次の章で細かく追っておきたい思います。ただしとても重要な箇所となり、Laravelの処理フローに大きく関わってきます。
+
+- `method` ：書く場合と書かない場合があります。書かれている場合に関しては、 `http method` で検索して頂けたらと思います。書いてない場合に関してのみ説明します。端的に `http method の POST` です。基本的にSystemというものは、数種類のmethodを使用しますがその多くが `GET` or `POST` です。そして `Form` タグを使用する場合の多くが `POST` です。使用頻度が高い場合は、わざわざ明記するのは手間です。なので明記しなくても使えるようにしてあるのです。
 
 
