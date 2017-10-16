@@ -106,11 +106,31 @@ View fileの指定を行います。Createメソッドに関しては、以上�
     {
         // 以下 returnまで追記
         $input = $request->all();
-        $this->todo->fill($input);
-        $this->todo->save();
+        $this->todo->fill($input)->save();
         return redirect->to('todo');
     }
 ```
  
 見たことないものばかりかと思います。
 - `Request $request` ：fileの上部に記載ある `ues Illuminate\Http\Request;` の `Request` を使用してます。これを使うことで何が実現できているかというと`Form` タグで送信した `POST` 情報を取得することを実現してます。
+
+- `$this->todo->fill($input)->save();` ：fillは、引数を設定できるかどうかを確認してくれます。これは、`Model file` に追記した記述をしていることによって可能としてます。かつ最後の `save()` でデータの保存を行います。※指定外のものは無視します。
+
+最後に保存完了後は、一覧画面に遷移させる記述を行なっています。
+
+## `Edit` メソッドを編集
+
+- このメソッドを通してTodoの更新を行います。
+
+```php
+    public function edit($id)
+    {
+        $todo = $this->todo->find($id);  // 追記
+        return view('todo.edit', compact('todo'));  // 追記
+    }
+```
+
+今回は、あまり説明するような箇所はないのですが2箇所だけ説明をいたします。
+- `edit($id)` ：これは、`URL` のパラメータの取得のための記述になります。`php artisan route:list` で `route` の一覧を確認してみてください。そうすると `todo/{todo}/edit` となっているはずです。この `{edit}` の箇所がパラメータ扱いになります。view側で引数で渡すことによって画面遷移用のURLが作成できるようになっています。このControllerの記述が終わったら再度Viewの仕上げを行います。その際に再度説明を交えます。
+
+- `$this->todo->find($id);` ：パラメータで渡ってきた値を元にDBへ検索を行なっています。これにより指定のデータのみ取得することが可能になり、編集画面に一覧で選択したTitileのものを表示し更新を可能にします。
