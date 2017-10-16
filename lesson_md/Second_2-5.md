@@ -7,7 +7,8 @@
 ```shell
 phpp artisan make:model Todo
 ```
-`app/` 以下に下記のようなfileが作成されましたでしょうか？
+`app/` 以下にfileが作成されたと思うので編集を行います。
+
 ```php
 <?php
 
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Todo extends Model
 {
-    //
+    protected $fillable = ['title']; // 追記
 }
 ```
 
@@ -56,14 +57,60 @@ class TodoController extends Controller
   - メソッドの中で `$this->todo` という風に書いたものに引数で渡ってきたものを代入してます。これは、`private $todo;` へアクセスし代入を行なっていることになります。 `$this->todo` の `$this` が自身(Class)自体をさしているのでその中に存在する `$todo` を意味しています。なぜ `->` という書き方をしたのかというとオブジェクトに対して操作をする際は、必ずこの書き方を行う必要があります。以後覚えておきましょう。
 
 作成したViewを使用するための記述を順次書いていきます。ここまでは、あくまでの下準備に過ぎないので各メソッドに対して追記を行なっていきます。
-最初は、`index` メソッドに対してです。
+
+## `index` メソッドの編集
 
 ```php
 // 上記省略
     public function index()
     {
-        $todos = $this->todo->all();
-        return view('todo.index', compact('todos'));
+        $todos = $this->todo->all();  // 追記
+        return view('todo.index', compact('todos'));  // 編集
     }
 // 以下省略
 ```
+
+modelは、DBへの操作を行うものと言いました。ここで `$this->todo->all()` と書かれておりそれは、 `$todos` へ代入されています。ここでわかるのは、代入された変数は、複数形になっているので1個以上の値が入ってきているのだということがわかります。
+実際に何をしているか？答えは、簡単で `$this->todo->all()` とすることでDBのから全件取得してます。つまり `SELECT * FORM Todos;` というSQL文が発行されてます。
+
+どのFWでも大抵は、DB操作を楽するためのツールをあらかじめ導入しておりそれを用いて簡潔にかつソースでDBへの操作を実現してます。このようなものを `ORM` と言います。
+DBからの返却データは、Objectとしてデータが返却されます。この返却されたObjectをViewに渡し取得した値を表示したりしてます。そのためには、取得したデータをViewに渡さなければなりません。そのための記述として `return view('todo.index', compact('todos'));` という書き方をしています。この `compact` というのは、日本語でぎっしり詰めてという意味になるので `compact()` にview側に渡したい変数を記述してあげます。そうすることによってview側で変数を使用することが可能となります。
+
+後ほどViewの方を再度修正したいと思います。
+
+## `Create` メソッドの編集
+
+処理という処理はないですがViewの表示が行えるように編集を行います。
+
+```php
+// 省略
+    public function create()
+    {
+        return view('todo.create');  // 追記
+    }
+// 以下省略
+```
+
+View fileの指定を行います。Createメソッドに関しては、以上となります。
+
+
+## `Store` メソッドの編集
+
+このメソッドがどんな役割をするメソッドかどうかからの説明が必要になると思います。まず最初に `Store` というのは、英語では多義語となってます。今回の使い道としては、格納というイメージでの使われ方をしていると思います。
+
+格納という意味を知って即座にDBを連想した方は、素晴らしいです。DBにデータを格納するための処理を行うメソッドになっています。
+
+```php
+// 省略
+    public function store(Request $request)
+    {
+        // 以下 returnまで追記
+        $input = $request->all();
+        $this->todo->fill($input);
+        $this->todo->save();
+        return redirect->to('todo');
+    }
+```
+ 
+見たことないものばかりかと思います。
+- `Request $request` ：fileの上部に記載ある `ues Illuminate\Http\Request;` の `Request` を使用してます。これを使うことで何が実現できているかというと`Form` タグで送信した `POST` 情報を取得することを実現してます。
