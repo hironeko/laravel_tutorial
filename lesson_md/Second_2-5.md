@@ -162,3 +162,18 @@ View fileの指定を行います。Createメソッドに関しては、以上�
 
 - 今回は、物理削除にしてます。なのでこのメソッドの処理が行われる際は、DBから完全に削除されます。
 
+```php
+    public function destroy($id)
+    {
+        $this->todo->find($id)->delete();
+        return redirect()->to('todo');
+    }
+```
+
+今回の内容もメソッド名が変わっただけで基本的な流れは同じです。
+処理として、`find` で検索し、`delete` で削除という流れになります。
+
+-
+
+これで`Controller` の実装は、完了となります。
+あとは最後に`view` の仕上げをしてこのカリキュラムは、完了となります。
