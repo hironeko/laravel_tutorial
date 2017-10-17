@@ -13,4 +13,4 @@
     - [2-3-1] [Viewの分割を行なっていく](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Second_2-3-1.md)
   - [2-4] [Routeについて](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Second_2-4.md)
   - [2-5] [Controllerを仕上げていく](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Second_2-5.md)
-  - [2-6] [Viewを仕上げていく](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Second_2-5.md)
+  - [2-6] [Viewを仕上げていく](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Second_2-6.md)
