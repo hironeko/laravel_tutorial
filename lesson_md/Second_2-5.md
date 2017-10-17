@@ -109,6 +109,7 @@ View fileの指定を行います。Createメソッドに関しては、以上�
         $this->todo->fill($input)->save();
         return redirect->to('todo');
     }
+// 以下省略
 ```
  
 見たことないものばかりかと思います。
@@ -123,14 +124,41 @@ View fileの指定を行います。Createメソッドに関しては、以上�
 - このメソッドを通してTodoの更新を行います。
 
 ```php
+// 省略
     public function edit($id)
     {
         $todo = $this->todo->find($id);  // 追記
         return view('todo.edit', compact('todo'));  // 追記
     }
+// 以下省略
 ```
 
 今回は、あまり説明するような箇所はないのですが2箇所だけ説明をいたします。
 - `edit($id)` ：これは、`URL` のパラメータの取得のための記述になります。`php artisan route:list` で `route` の一覧を確認してみてください。そうすると `todo/{todo}/edit` となっているはずです。この `{edit}` の箇所がパラメータ扱いになります。view側で引数で渡すことによって画面遷移用のURLが作成できるようになっています。このControllerの記述が終わったら再度Viewの仕上げを行います。その際に再度説明を交えます。
 
 - `$this->todo->find($id);` ：パラメータで渡ってきた値を元にDBへ検索を行なっています。これにより指定のデータのみ取得することが可能になり、編集画面に一覧で選択したTitileのものを表示し更新を可能にします。
+
+
+## `Update` メソッドを編集
+
+- このメソッドが更新のメイン処理になります。
+
+```php
+// 省略
+    public function update(Request $request, $id)
+    {
+        $input = $request->all();
+        $this->todo->find($id)->fill($input)->save();
+        return redirect()->to('todo');
+    }
+// 以下省略
+```
+
+内容としては、`edit` メソッドの箇所と `store` メソッドの箇所を合わせたものになります。
+処理としては、`find` で検索し、`fill` で設定の確認(検証)し、保存という流れです。
+
+
+## `Destroy` メソッドを編集
+
+- 今回は、物理削除にしてます。なのでこのメソッドの処理が行われる際は、DBから完全に削除されます。
+
