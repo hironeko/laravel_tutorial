@@ -113,11 +113,12 @@ Migrated:  201y_mm_dd_xxxxxx_create_todos_table
 - seederという機能を使用してdatabaseに初期データを投入するためのfileの作成と記述を行います。
 
 ```shell
-php artisan make:seeder make:seeder TodosTableSeeder
+php artisan make:seeder TodosTableSeeder
 ```
 
 上記コマンド実行することによって*database/seeds/*以下に作成されます。
 作成されたfileに対して編集を行います。以下に記載あるように追加と記載ある範囲を写経しましょう。
+
 
 ```php
 <?php

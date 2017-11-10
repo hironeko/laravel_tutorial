@@ -38,11 +38,12 @@ class TodoController extends Controller
     // ここから追記
     private $todo;
 
-    public function __construct(Todo $todo)
+    public function __construct(Todo $instanceClass)
     {
-        $this->todo = $todo;
+        $this->todo = $instaceClass;
     }
     // ここまで追記
+
 // 以下省略
 ```
 

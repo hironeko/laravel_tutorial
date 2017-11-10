@@ -3,7 +3,7 @@
 アプリケーションの要となる*Controller*が必要なので作成を行います。以下のコマンドを実行してください。
 
 ```shell
-php artisan make:controler TodoController --resource
+php artisan make:controller TodoController --resource
 ```
 
 作成が完了したら*app/Http/Controllers*内に存在する*TodoController.php*を確認してください。
