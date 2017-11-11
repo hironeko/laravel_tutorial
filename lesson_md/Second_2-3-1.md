@@ -201,7 +201,7 @@ touch resources/views/todo/create.blade.php resources/views/todo/edit.blade.php
 @endsection
 ```
 
-編集file `resources/views/todo/edit.blad.php` です。
+編集file `resources/views/todo/edit.blade.php` です。
 
 ```html
 @extends('layout.app')

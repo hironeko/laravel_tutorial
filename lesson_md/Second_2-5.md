@@ -5,7 +5,7 @@
 
 まず最初に `DB` への操作が行えるように `Model` のfileを作成します
 ```shell
-phpp artisan make:model Todo
+php artisan make:model Todo
 ```
 `app/` 以下にfileが作成されたと思うので編集を行います。
 
@@ -48,7 +48,7 @@ class TodoController extends Controller
 ```
 
 これだけで `model` の使用が可能になります。順を追って説明していきましょう。
-- `use AppApp\Todo;` ： 最初のうちは、`require()` メソッドに近いイメージをしていただけたらいいと思います。この記述をすることによって `app/Todo.php` を使用することができます。 `use` は、日本語で使うという意味、それ以下に書かれているのは、fileまでのパスが書いてあると思ってください。
+- `use App\Todo;` ： 最初のうちは、`require()` メソッドに近いイメージをしていただけたらいいと思います。この記述をすることによって `app/Todo.php` を使用することができます。 `use` は、日本語で使うという意味、それ以下に書かれているのは、fileまでのパスが書いてあると思ってください。
 
 - `private $todo;` ：privateは、日本的にクローズドなイメージを抱くかと思います。この場合の用途としてもまさにそのままでこれは、 `Class` 内でしか使用しない変数言い換えれば `このClass` 以外からのアクセスを避けたい変数の定義のさいに使用されます。
   - 他にも、`public` `protected` と種類がありますので比べてみてみるのもいいかと思います。
