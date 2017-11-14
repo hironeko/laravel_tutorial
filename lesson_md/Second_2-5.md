@@ -40,7 +40,7 @@ class TodoController extends Controller
 
     public function __construct(Todo $instanceClass)
     {
-        $this->todo = $instaceClass;
+        $this->todo = $instanceClass;
     }
     // ここまで追記
 
@@ -108,7 +108,7 @@ View fileの指定を行います。Createメソッドに関しては、以上�
         // 以下 returnまで追記
         $input = $request->all();
         $this->todo->fill($input)->save();
-        return redirect->to('todo');
+        return redirect()->to('todo');
     }
 // 以下省略
 ```
