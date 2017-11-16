@@ -361,7 +361,7 @@ abstract class TestCase extends BaseTestCase
 
 さて編集が完了したので実際に動かしてみましょう。
 
-```php
+```shell
 ./vendor/bin/phpunit
 ```
 問題なく完了したら次に`DB` の中を確認してみましょう。
