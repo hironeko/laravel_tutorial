@@ -14,7 +14,8 @@
   - [2-4] [Routeについて](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Second_2-4.md)
   - [2-5] [Controllerを仕上げていく](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Second_2-5.md)
   - [2-6] [Viewを仕上げていく](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Second_2-6.md)
+  - [2-7] [完成&動作確認]()https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Second_2-7.md
 
 - 第3章
-  - [3-1] [PHPUnitを触ってみよう]()
+  - [3-1] [PHPUnitを触ってみよう](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Third_3-1.md)
   

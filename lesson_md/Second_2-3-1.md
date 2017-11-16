@@ -10,7 +10,7 @@
 
 Macの方はコマンドでfileを作成しましょう。
 ```shell
-touch resource/views/todo/index.blade.php
+touch resources/views/todo/index.blade.php
 ```
 作成されたfileをエディタで開き記述を行います。この際、前回作成したfileから流用しますがそれに伴い前回のfileの変更も行います。
 
