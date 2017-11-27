@@ -403,8 +403,11 @@ abstract class TestCase extends BaseTestCase
 
 - `$this->prepareForTests();`
 いきなり`$this->` と出てきました。これは、本来class自身をオブジェクトとして使う際に出てきます。
+
 例えば`class Hoge` というのがありそのclass内に`public function fuga(){ ~ }` と`public function test(){ ~ }` と2種類のメソッドが存在したとします。`fuga` で`test` を使用したいという場面があった場合に`$this->test();` と書きます。
+
 このように書くことによって`fuga` で`test` を使用可能になります。
+
 今回の場合なのですがこのclass内にて`prepareForTests` というメソッドは、定義されてません。では、どこにあるというのでしょうか？
 その答えは、`use CreateApplication` と書かれた箇所に存在してます。
 
@@ -414,10 +417,14 @@ abstract class TestCase extends BaseTestCase
 
 このfileを編集した際の追記箇所に`prepareForTests` というメソッドが存在してます。先ほどの`tests/TestCase.php` の解説の中で出てきた`$this->prepareForTests();` は、このメソッドをさしてます。
 ではなぜ継承してないのに自身のclass内にも定義してないのに使えるのか？
+
 それは、`trait` というのは、単純にいくつかのメソッド(機能)群をまとめたものになります。traitは、`use` してあげることによりそのclass内のメンバーとなることができます。またclassが継承している親classのメソッドよりも優先されます。
+
 このtraitという機能は、コードの再利用、また多重継承などのにより起こりうる複雑な問題なども解決してくれます。
+
 ただデメリットも存在していますがここでは、割愛します。興味がある方は、以下の参照URLからご確認ください。
-[参照URL](https://secure.php.net/manual/ja/language.oop5.traits.php)
+
+> [参照URL](https://secure.php.net/manual/ja/language.oop5.traits.php)
 
 このtraitは、Laravelでももちろんですが多くの場面で使用されてますので`use` = `trait` の可能性もあるんじゃね？って考えるようにしましょう。
 もちろんそれ以外の場合もありますのでこの限りでは、ありません。
