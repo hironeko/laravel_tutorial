@@ -102,6 +102,8 @@ Illuminate\Foundation\Auth\AuthenticatesUsers
 
 `Illuminate\Foundation\Auth` という箇所が`namespace` という機能を使用して定義されたおり、実態は、`vendor/laravel/framework/src/Illuminate/Fundation/Auth/AuthenticatesUsers.php` にあるfileをこの1行で指定してます。
 
+`use ~` と書くことによって使えるようになると話しましたが利用できているのは、`class` の中に書かれている`use AuthenticatesUsers;` の箇所があるからです。これを書くことによって`class` 内で使用できます。
+
 この`trait file` に書かれているメソッドは、`LoginController.php` にあるメソッドと継承元の`class` のメソッドと同じように使えると思ってください。
 
 ただ注意すべき点があります。どれも同じ優先度で使用できるとPCは理解ができません。なのでそれぞれのfileのメソッドを使用するには、優先順位があらかじめ決められています。
@@ -110,4 +112,57 @@ Illuminate\Foundation\Auth\AuthenticatesUsers
 
 ここは、他のphpフレームワーク等でも使用される箇所になるのでしっかりと把握しましょう。
 
+- ではLogoutメソッドを使用する方法です
+
+先ほど`trait` fileは、`class` のメソッドとして使用できると話しました。さらに`class` 内にて`use AuthenticatesUsers;` と書くことによって使えるようになると話しました。
+
+ここまでは、`trait` の使用方法です。(traitに限った話しではありませんがここでは、traitを中心に話します)
+
+メソッドを使うには、ものすごく簡単で参照先のfileのメソッド名をそのまま使用するだけです。
+
+実際に書いてみましょう。
+編集fileは、`app/Http/Controller/Auth/LoginController.php` です。
+
+```php
+<?php
+
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;  // 追記
+
+// 省略
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
+// ここから
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return redirect('/login');
+    }
+// ここまで追記
+}
+```
+
+上記のように書いたら実際に動かしてみましょう。
+
+一度ブラウザで確認しましょう。
+
+> URLは、`http://127.0.0.1:8000/login` にアクセスしてください
+
+では、一度登録したユーザーでログインをしログアウトをしましょう。
+
+ログアウト後の遷移先は、ログイン画面になりましたでしょうか？
 

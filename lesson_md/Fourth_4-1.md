@@ -56,6 +56,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 また上部に`Login` と`Register` という文言が下記画像のように確認できましたでしょうか？
 
+![画像](https://github.com/hironeko/for_laravel_beginner/blob/master/images/login_view.png)
 
 ではURLの`home` の部分を`todo` に変更してみましょう。
 
