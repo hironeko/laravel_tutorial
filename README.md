@@ -36,7 +36,7 @@
 
 - 第4章 認証(ログイン機能)
   - [4-1] [ログイン機能の実装](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Fourth_4-1.md)
-  - [4-2] [既存ページにログイン機能を反映](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Fourth_4-1.md)
+  - [4-2] [既存ページにログイン機能を反映](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/Fourth_4-2.md)
   
 - 第5章 ユーザーとデータの紐付け
   - [5-1]
