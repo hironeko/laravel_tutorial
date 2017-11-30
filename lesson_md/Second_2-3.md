@@ -24,7 +24,7 @@ Webページは、多くの共通する記述が存在します。
 ## fileを置くディレクトリ作成
 
 ```shell
-mkdir resources/views/layout resources/views/todo
+mkdir resources/views/layoutss resources/views/todo
 ```
 同時に2個のディレクトリを作成しました。
 1個は、テンプレートになるfileが格納されるディレクトリ
@@ -34,7 +34,7 @@ mkdir resources/views/layout resources/views/todo
 
 Macの方は、コマンドでfileを作成しましょう。
 ```shell
-touch resources/views/layout/app.blade.php
+touch resources/views/layouts/app.blade.php
 ```
 
 エディタを開き早速中身を書いていきます。

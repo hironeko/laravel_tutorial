@@ -53,7 +53,7 @@ touch resources/views/todo/index.blade.php
 
 その前にテンプレートの方にも手を加えます。
 
-対象file `resources/views/layout/app.blade.php` です。
+対象file `resources/views/layouts/app.blade.php` です。
 ```html
 <!DOCTYPE html>
 <html lang="ja">
@@ -95,7 +95,7 @@ touch resources/views/todo/index.blade.php
 対象file `resources/views/todo/index.blade.php` です。
 
 ```html
-@extends('layout.app') <!-- 追記 -->
+@extends('layouts.app') <!-- 追記 -->
 @section('content')  <!-- 追記 -->
 
     <h2 class="page-header">ToDo一覧</h2>
@@ -187,7 +187,7 @@ touch resources/views/todo/create.blade.php resources/views/todo/edit.blade.php
 
 編集file `resources/views/todo/create.blade.php` です。
 ```html
-@extends('layout.app')
+@extends('layouts.app')
 @section('content')
 
     <h2 class="page-header">ToDo作成</h2>
@@ -204,7 +204,7 @@ touch resources/views/todo/create.blade.php resources/views/todo/edit.blade.php
 編集file `resources/views/todo/edit.blade.php` です。
 
 ```html
-@extends('layout.app')
+@extends('layouts.app')
 @section('content')
 
     <h2 class="page-header">ToDo編集</h2>
