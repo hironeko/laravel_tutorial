@@ -12,7 +12,9 @@
 
 必要項目を入力の上`Register` というボタンをクリックしてください。
 
-画面が遷移し以下のように表示されたら問題ありません。
+画面が遷移し下記のように表示されたら問題ありません。
+
+![画像](https://github.com/hironeko/for_laravel_beginner/blob/master/images/login_success.png)
 
 `php artisan migrate` を行なっていないのになぜユーザー登録ができたかというと以前に`Todostable` を作成する際に`php artisan migrate` を実行しすでにDataBaseにTableが存在しているからです。
 
