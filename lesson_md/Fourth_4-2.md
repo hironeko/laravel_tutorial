@@ -96,11 +96,11 @@ php artisan route:list | grep logout
 
 ```php
 Illuminate\Foundation\Auth\AuthenticatesUsers
-// <-ここから      ここまで-><- file名        ->
+// <-ここから      ここまでPATH  -><- file名        ->
 ```
 これは、`use` している`trait` fileまでの`PATH` となってます。
 
-`Illuminate\Foundation\Auth` という箇所が`namespace` という機能を使用してい定義されたおり、実態は、`vendor/laravel/framework/src/Illuminate/Fundation/Auth/AuthenticatesUsers.php` にあるfileをこの1行で指定してます。
+`Illuminate\Foundation\Auth` という箇所が`namespace` という機能を使用して定義されたおり、実態は、`vendor/laravel/framework/src/Illuminate/Fundation/Auth/AuthenticatesUsers.php` にあるfileをこの1行で指定してます。
 
 この`trait file` に書かれているメソッドは、`LoginController.php` にあるメソッドと継承元の`class` のメソッドと同じように使えると思ってください。
 
