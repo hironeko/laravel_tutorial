@@ -23,8 +23,7 @@
 ├── storage
 ├── tests
 ├── vendor
-├── webpack.mix.js
-└── yarn.lock
+└── webpack.mix.js
 ```
 
 上記の様な構成になっているかと思います
