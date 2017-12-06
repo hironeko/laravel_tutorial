@@ -24,7 +24,7 @@ Webページは、多くの共通する記述が存在します。
 ## fileを置くディレクトリ作成
 
 ```shell
-mkdir resources/views/layoutss resources/views/todo
+mkdir resources/views/layouts resources/views/todo
 ```
 同時に2個のディレクトリを作成しました。
 1個は、テンプレートになるfileが格納されるディレクトリ
