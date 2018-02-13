@@ -11,13 +11,13 @@ InstallをしてProjectを作成しよう
 - Install方法は、2種類あります
 
 ```shell
-composer create-project laravel/laravel ProjectName 
+composer create-project laravel/laravel testApp #今回は、testAppとしてます 
 ```
 もしくは、以下のコマンドを実行してもInstallは可能です
 
 ```shell
 composer global require "laravel/installer"
-laravel new ProjectName
+laravel new testApp
 ```
 
 
@@ -29,7 +29,7 @@ Serverを立ち上げる
 ----
 以下のコマンドを実行しProjectのディレクトリに移動しサーバーを立ち上げてみます
 ```shell
-cd ProjectName
+cd testApp
 php artisan serve
 ```
 
