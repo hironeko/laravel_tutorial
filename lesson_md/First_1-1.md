@@ -11,7 +11,6 @@ InstallをしてProjectを作成しよう
 - Install方法は、2種類ありますが今回は、下記のコマンドで実行します
 
 ```shell
-<<<<<<< HEAD
 composer create-project laravel/laravel --prefer-dist testApp 5.5 #今回は、testAppとしてます
 ```
  
