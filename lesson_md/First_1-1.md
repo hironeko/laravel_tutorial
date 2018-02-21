@@ -11,7 +11,8 @@ InstallをしてProjectを作成しよう
 - Install方法は、2種類ありますが今回は、下記のコマンドで実行します
 
 ```shell
-composer create-project laravel/laravel --prefer-dist ProjectName 5.5
+<<<<<<< HEAD
+composer create-project laravel/laravel --prefer-dist testApp 5.5 #今回は、testAppとしてます
 ```
  
 コマンド内にあるオプションで`--prefer-dist` というのがありますがこれは、安定板を指定してます
@@ -24,7 +25,7 @@ Serverを立ち上げる
 ----
 以下のコマンドを実行しProjectのディレクトリに移動しサーバーを立ち上げてみます
 ```shell
-cd ProjectName
+cd testApp
 php artisan serve
 ```
 

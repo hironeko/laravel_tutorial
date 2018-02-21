@@ -269,6 +269,8 @@ class TodoTest extends TestCase
 
 ## テスト用の`DB` 設定を行う
 
+- テスト用のDBの作成を先に行ってください。
+  - 作成というのは、mysqlサーバーに接続し`create database test_db;` を実行し作成をするということです。
 - ネット上には、いくつかの設定方法がありますが一旦は、わかりやすいもので設定を行いたいと思います。
 `phpunit.xml` を編集します。
 
@@ -276,7 +278,7 @@ class TodoTest extends TestCase
 <!-- 省略 -->
   <php>
   <!-- 省略 -->
-      <env name="DB_DATABASE" value="TestDBName"/> <!-- 追記 -->
+      <env name="DB_DATABASE" value="test_db"/> <!-- 追記 今回は、test_dbという名前に設定 -->
   </php>
 </phpunit>
 ```
