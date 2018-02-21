@@ -1,6 +1,6 @@
 前提環境
 ----
-- PHP version 7.*.* 以上
+- PHP version 7.0.* 以上
 - composer がinstallされていること
 
 
@@ -8,23 +8,18 @@
 InstallをしてProjectを作成しよう
 ----
 
-- Install方法は、2種類あります
+- Install方法は、2種類ありますが今回は、下記のコマンドで実行します
 
 ```shell
-composer create-project laravel/laravel ProjectName 
+composer create-project laravel/laravel --prefer-dist ProjectName 5.5
 ```
-もしくは、以下のコマンドを実行してもInstallは可能です
-
-```shell
-composer global require "laravel/installer"
-laravel new ProjectName
-```
-
-
-また上記に付随しオプションでversion指定をすることも可能で、以前のversionを指定してのProject作成も可能です
-
-
-
+ 
+コマンド内にあるオプションで`--prefer-dist` というのがありますがこれは、安定板を指定してます
+ 
+また上記に付随しオプションでversion指定を行っています。5.5系がサポートが期間が一番長く、セキュリティー修正も長い、なのでわざわざ5.6系を使用する理由もないので5.5系を使用します。
+ 
+5.6系だとPHP versionが7.1.3以上でないと利用できません。 
+ 
 Serverを立ち上げる
 ----
 以下のコマンドを実行しProjectのディレクトリに移動しサーバーを立ち上げてみます
