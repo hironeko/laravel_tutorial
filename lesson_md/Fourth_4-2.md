@@ -98,7 +98,7 @@ php artisan route:list | grep logout
 
 ```php
 Illuminate\Foundation\Auth\AuthenticatesUsers
-// <-ここから    ここまでPATH-><- file名        ->
+// <-ここから    ここまでPATH-><- Class名        ->
 ```
 これは、`use` している`trait` fileまでの`PATH` となってます。
 
