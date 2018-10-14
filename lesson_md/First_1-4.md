@@ -5,7 +5,7 @@
 
 - MVCというアーキテクチャは、小規模なシステムでは採用されることはあっても中規模以上のシステムになるとMVCで実装するとおおよそが破綻します。またまた違った理解、認識、説明がネットには溢れているので気をつけましょう。
 
-![画像](https://github.com/hironeko/for_laravel_beginner/blob/master/images/laravel_flow_chart.png)
+![画像](https://github.com/hironeko/laravel_original_tutorial/blob/master/images/laravel_fllow_chart.png)
 
 
 
