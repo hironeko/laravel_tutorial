@@ -26,3 +26,5 @@ php artisan serve
 
 実際にアクセスしてみましょう
 以下のような画面が表示されれば問題ありません
+
+![laravel_top_img](https://github.com/hironeko/laravel_original_tutorial/blob/master/images/laravel_top.png)
