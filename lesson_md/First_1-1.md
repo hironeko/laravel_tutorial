@@ -1,9 +1,3 @@
-前提環境
-----
-- PHP version 7.0.* 以上
-- composer がinstallされていること
-
-
 
 InstallをしてProjectを作成しよう
 ----
@@ -11,14 +5,13 @@ InstallをしてProjectを作成しよう
 - Install方法は、2種類ありますが今回は、下記のコマンドで実行します
 
 ```shell
-composer create-project laravel/laravel --prefer-dist testApp 5.5 #今回は、testAppとしてます
+composer create-project laravel/laravel --prefer-dist testApp
 ```
  
 コマンド内にあるオプションで`--prefer-dist` というのがありますがこれは、安定板を指定してます
  
-また上記に付随しオプションでversion指定を行っています。5.5系がサポート期間が一番長く、セキュリティー修正も長い、なのでわざわざ5.6系を使用する理由もないので5.5系を使用します。
+また上記に付随しオプションでversion指定を行っています。5.5系がサポート期間が一番長く、セキュリティー修正も長いですがあくまで今回は学習なので気にせず最新版を使用します。
  
-5.6系だとPHP versionが7.1.3以上でないと利用できません。 
  
 Serverを立ち上げる
 ----
