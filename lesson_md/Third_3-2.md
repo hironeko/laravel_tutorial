@@ -62,14 +62,23 @@ Laravelに付属しているPHPUnitを使用してのテストを書く場合は
 
 ```php
 <?php
+declare(strict_types=1);
 
 namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+* ExampleTest class
+*/
 class ExampleTest extends TestCase
 {
+    /**
+    * @const int 成功時のステータスコード
+    */
+    const SUCCESS_STATUS_CODE = 200;
+    
     /**
      * A basic test example.
      *
@@ -79,7 +88,7 @@ class ExampleTest extends TestCase
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertStatus(self::SUCCESS_STATUS_CODE);
     }
 }
 ```
@@ -100,24 +109,32 @@ PHPUnitの基本としてメソッドを書く際には、二通りの書き方�
 
 ```php
 <?php
+declare(strict_types=1);
 
 namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+* ExampleTest class
+*/
 class ExampleTest extends TestCase
 {
     /**
+    * @const int 成功時のステータスコード
+    */
+    const SUCCESS_STATUS_CODE = 200;
+    
+    /**
      * A basic test example.
      * @test  // 追記
-     * @return void
      */
     public function basicTest() // 変更
     {
         $response = $this->get('/');
 
-        $response->assertStatus(200);
+        $response->assertStatus(self::SUCCESS_STATUS_CODE);
     }
 }
 ```
@@ -154,6 +171,7 @@ OK (2 tests, 2 assertions)
 
 ```php
 <?php
+declare(strict_types=1);
 
 namespace Tests\Unit;
 
@@ -199,6 +217,7 @@ php artisan make:test TodoTest
 
 ```php
 <?php
+declare(strict_types=1);
 
 namespace Tests\Feature;
 
@@ -223,15 +242,24 @@ class TodoTest extends TestCase
 
 ```php
     /**
+    * @const int 成功時のステータスコード
+    */
+    const SUCCESS_STATUS_CODE = 200;
+    
+    /**
+    * @const string アクセスするURI
+    */
+    const ACCESS_URI = '/todo';
+    
+    /**
      * A basic test example.
      * @test  // 追記
-     * @return void
      */
     public function indexTest()  // 変更
     {
     　　// 以下変更と追記
-        $response = $this->get('/todo');
-        $response->assertStatus(200);
+        $response = $this->get(self::ACCESS_URI);
+        $response->assertStatus(self::SUCCESS_STATUS_CODE);
     }
 ```
 
@@ -260,8 +288,9 @@ class TodoTest extends TestCase
     /** @test */
     public function createTest()
     {
-        $response = $this->get('/todo/create');
-        $response->assertStatus(200);
+        $uri = self::ACCESS_URI . '/create';
+        $response = $this->get($uri);
+        $response->assertStatus(self::SUCCESS_STATUS_CODE);
     }
 }
 ```
@@ -294,6 +323,7 @@ class TodoTest extends TestCase
 
 ```php
 <?php
+declare(strict_types=1);
 
 namespace Tests;
 
@@ -318,6 +348,10 @@ trait CreatesApplication
     }
 
     // ここから追記
+    /**
+    * artisanコマンドを実行しmigrationを行う
+    * 実行後テストに必要なデータを投入する
+    */
     public function prepareForTests()
     {
         Artisan::call('migrate');
@@ -343,16 +377,23 @@ modelに当たる`app/Todo.php` を使用できるようにし`table` への操�
 
 ```php
 <?php
+declare(strict_types=1);
 
 namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+/**
+* TestCase class
+*/
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, DatabaseTransactions;
     
+    /**
+    * setUp
+    */
     public function setup()
     {
         parent::setup();
@@ -392,6 +433,9 @@ abstract class TestCase extends BaseTestCase
 
 ```php
 // 省略
+    /**
+    * setUp
+    */
     public function setup()
     {
         parent::setup();
