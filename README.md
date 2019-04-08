@@ -23,8 +23,7 @@ Vue  : 2.5.*
 
 ## 目次
 -----
-- 第0章 前書き
-  - [前書き](https://github.com/hironeko/laravel_original_tutorial/blob/master/lesson_md/Zero.md)
+
 - 第1章 概要と導入
   - [1-1] [前提環境・Install・起動](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/First_1-1.md)
   - [1-2] [ディレクトリ構成の確認](https://github.com/hironeko/for_laravel_beginner/blob/master/lesson_md/First_1-2.md)
