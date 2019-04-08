@@ -27,10 +27,3 @@
 ```
 
 上記の様な構成になっているかと思います
-
-Laravel5.4と変わりないです
-
-5.5からの変更点に関しては、公式でアナウンスされているのでぜひ確認してみてください
-
-[Laravel News](https://laravel-news.com/category/laravel-5.5)
-
