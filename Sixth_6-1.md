@@ -17,9 +17,9 @@ namespace App\Services;
 use App\Models\User;
 
 /**
-* class UserSetting
+* UserSettingService class
 */
-class UserSetting
+class UserSettingService
 {
     /**
     * @var User
