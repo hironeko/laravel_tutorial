@@ -11,13 +11,20 @@ php artisan make:model Todo
 
 ```php
 <?php
+declare(strict_types=1);
 
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+* Todo class
+*/
 class Todo extends Model
 {
+    /**
+    * @var array
+    */
     protected $fillable = ['title']; // 追記
 }
 ```
@@ -29,17 +36,28 @@ class Todo extends Model
 編集file `app/Http/Controllers/TodoController.php` を編集します。
 ```php
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Todo;  // 追記
 
+/**
+* TodoController class
+*/
 class TodoController extends Controller
 {
     // ここから追記
+    /**
+    * @var Todo
+    */
     private $todo;
 
+    /**
+    * contructor function
+    * @param Todo $instanceClass
+    */
     public function __construct(Todo $instanceClass)
     {
         $this->todo = $instanceClass;
@@ -71,6 +89,10 @@ class TodoController extends Controller
 
 ```php
 // 上記省略
+    /**
+    * index function 
+    * @return Response
+    */
     public function index()
     {
         $todos = $this->todo->all();  // 追記
@@ -87,7 +109,7 @@ DBからの返却データは、Objectとしてデータが返却されます。
 
 後ほどViewの方を再度修正したいと思います。
  
-※基本的にControllerは、viewメソッドに画面で使用する物を引数として渡し返却してるに過ぎません。なので間違えがないようにしてもらいたいのは、Controllerは、画面を描画しているわけではないと言うことを注意しましょう。
+※基本的にControllerは、viewメソッドに画面で使用する物を引数として渡し返却してるに過ぎません。なので間違えがないようにしてもらいたいのは、Controllerは、画面を描画しているわけではないと言うことを注意しましょう。
 
 ## `Create` メソッドを編集
 
@@ -95,6 +117,10 @@ DBからの返却データは、Objectとしてデータが返却されます。
 
 ```php
 // 省略
+    /**
+    * create function
+    * @return Response
+    */
     public function create()
     {
         return view('todo.create');  // 追記
@@ -113,6 +139,11 @@ View fileの指定を行います。Createメソッドに関しては、以上�
 
 ```php
 // 省略
+    /**
+    * store function
+    * @param \Illuminate\Http\Request $request
+    * @return Response
+    */
     public function store(Request $request)
     {
         // 以下 returnまで追記
@@ -138,6 +169,11 @@ View fileの指定を行います。Createメソッドに関しては、以上�
 
 ```php
 // 省略
+    /**
+    * edit function
+    * @param int $id
+    * @return Response
+    */
     public function edit(int $id)
     {
         $todo = $this->todo->find($id);  // 追記
@@ -158,6 +194,12 @@ View fileの指定を行います。Createメソッドに関しては、以上�
 
 ```php
 // 省略
+    /**
+    * update function
+    * @param \Illuminate\Http\Request $request
+    * @param int $id
+    * @return Response
+    */
     public function update(Request $request, int $id)
     {
         $input = $request->all();
@@ -176,6 +218,11 @@ View fileの指定を行います。Createメソッドに関しては、以上�
 - 今回は、物理削除にしてます。なのでこのメソッドの処理が行われる際は、DBから完全に削除されます。
 
 ```php
+    /**
+    * destroy function
+    * @param int $id
+    * @return Response
+    */
     public function destroy(int $id)
     {
         $this->todo->find($id)->delete();
