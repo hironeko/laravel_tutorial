@@ -27,6 +27,7 @@ php artisan migrate:reset                       # DBに対してmigrateしたも
 php aritsan migrate:rollback                    # 一回ずつrollbackする
 php artisan db:seed                             # DBに対してあらかじめ入れたいデータがある場合に実行する
 php artisan migrate --seed                      # DBに対してtable情報を反映させつつあらかじめDBにいれたいデータを入れたい場合に使用する
+php artisan make:test                           # PHPUnitのテストを作成する時に使用するまたオプションで --unitとすればUnit以下に作成される
 
 # URIなどの一覧を表示してくれる
 php artisan route:list
