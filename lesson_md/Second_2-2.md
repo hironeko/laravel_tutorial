@@ -11,17 +11,21 @@ php artisan make:controller TodoController --resource
 
 ```php
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+* TodoController class
+*/
 class TodoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -31,7 +35,7 @@ class TodoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -53,7 +57,7 @@ class TodoController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -64,7 +68,7 @@ class TodoController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -74,9 +78,9 @@ class TodoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -87,7 +91,7 @@ class TodoController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
@@ -122,8 +126,8 @@ class TodoController extends Controller
 // 以下省略
 ```
 
-## 表示させるためにルーティング機能に手を加えます。
-Controllerの編集が終わりましたら次にこのControllerを動かすためにルーティング機能に対して手を加えます。
+## 表示させるためにルーティングという機能に手を加えます。
+Controllerの編集が終わりましたら次にこのControllerを利用するためにルーティング機能に手を加えます。
 開くfileは、*route*フォルダ以下にある。*web.php*を開きます。中身は、以下のようになってます。
   
 ```php
@@ -155,4 +159,3 @@ php artisan serve
 ブラウザに*http://127.0.0.1:8000/todo* と入れてアクセスしてください。
 画面に"Hello world!!"と表示されたなら問題ありません。
 これでcontrollerとroute fileの関連性がイメージできたかと思います。
-※追って細かな説明していきますので安心してください。
