@@ -72,6 +72,7 @@ php artisan make:test TodoTest --unit
 `tests/Unit/TodoTest.php`
 ```php
 <?php
+declare(strict_types=1);
 
 namespace Tests\Unit;
 
@@ -79,6 +80,9 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Todo;
 
+/**
+* TodoTest class
+*/
 class TodoTest extends TestCase
 {
     // 省略 以下追記
