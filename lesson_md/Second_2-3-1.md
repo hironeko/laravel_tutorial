@@ -154,21 +154,24 @@ viewの実装が一旦終わりました。このままブラウザで確認し�
 
 ```php
 <?php
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/*
+* TodoController class
+*/
 class TodoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
-        //
         //return "Hello world!"; コメントアウト
         return view('todo.index');  // 追記
     }
@@ -256,7 +259,8 @@ viewのfileを編集する前に導入したものを使用可能にするため
 ```
 
 上記のように変更しましょう。
-これで使えるようになります。ただし `config` 以下のfileを変更した場合は、サーバが立ち上がった時に一度だけ読み込まれる設定fileとなりますので `サーバの再起動` を行いましょう。
+これで使えるようになります。ただし `config` 以下のfileを変更した場合は、`サーバの再起動` を行いましょう。
+理由：サーバが立ち上がった時に一度だけ読み込まれる設定fileとなります。
 
 では、実際に書いていきましょう。その後に解説を入れたいと思います。
 
