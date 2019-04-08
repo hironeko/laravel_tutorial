@@ -1,10 +1,10 @@
 # データの投入
 
 ## DBの設定を行います。
-まずは、DBに今回用の*database*を作成します。
+まずは、今回のLaravel用の*database*を作成します。
 
 ```shell
-mysql -u root -p
+mysql -u root -p # 適宜変更してください
 passwaord:
 mysql > create database todos;
 ```
@@ -23,13 +23,6 @@ mysql > show databases;
 - Laravelのプロジェクト直下に*.env*というfileがありますがこれに情報を書いていきます
 
 ```shell
-APP_NAME=Laravel
-APP_ENV=local
-APP_KEY=base64:Rs6WHziGChaNJGg0o1mBOidiKaFZPkKeHNt6aGamvYk=
-APP_DEBUG=true
-APP_LOG_LEVEL=debug
-APP_URL=http://localhost
-
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -43,17 +36,16 @@ DB_PASSWORD=your_password    # 編集 DBを作成した際のUserのPassword
 
 
 ## 次にtableの内容をコードとして書くことをしていきます
-今回はマイグレーションというバージョンのような管理機能を使ってテーブルを作成します。
-  - マイグレーションファイル自体が管理機能を有しているわけでなくマイグレーションという機能がバージョンのような管理機能として働いていると考えてください。
-  - 前回のアプリ作成では、MySQLに接続し直接sql文を入力し作成したかと思います。
-  - 今回は、migration fileというものに書き込んでいきます。
+今回はマイグレーションというバージョン管理のような機能を使ってテーブルを作成します。
+  - マイグレーションファイル自体が管理機能を有しているわけでなく機能がバージョン管理のような機能として働いていると考えてください。
+  - migration fileというものに書き込んでいきます。
 
 fileの作成を行うコマンド
 ```shell
 php artisan make:migration create_todos_table
 ```
 
-上記コマンドを実行したら*database/migrations/201y_mm_dd_xxxxxx_create_todos_table.php*というfileが作成されていると思います。
+上記コマンドを実行したら*database/migrations/20yy_mm_dd_xxxxxx_create_todos_table.php*というfileが作成されていると思います。
 この作成されたfileの編集を行いtableの構成を書いていきます。
 
 ```php
@@ -105,8 +97,8 @@ Migrating: 2014_10_12_000000_create_users_table
 Migrated:  2014_10_12_000000_create_users_table
 Migrating: 2014_10_12_100000_create_password_resets_table
 Migrated:  2014_10_12_100000_create_password_resets_table
-Migrating: 201y_mm_dd_xxxxxx_create_todos_table
-Migrated:  201y_mm_dd_xxxxxx_create_todos_table
+Migrating: 20yy_mm_dd_xxxxxx_create_todos_table
+Migrated:  20yy_mm_dd_xxxxxx_create_todos_table
 ```
 
 ## DBに初期データの投入を行います
@@ -193,6 +185,8 @@ Seeding: TodosTableSeeder
 ```shell
 php artisan migrate
 php artisan db:seed
+
+
 # 以下と同義です
 php artisan migrate --seed
 ```
