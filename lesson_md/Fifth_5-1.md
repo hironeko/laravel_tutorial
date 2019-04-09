@@ -59,12 +59,19 @@ DB関連の処理に関しては、以上で問題なく動作をさせること
 ```php
 <?php
 //  省略
+    /**
+    * @var array
+    */
     protected $fillable = [
         'title',
         'user_id'  // 追記
     ];
     // ここから
-    public function getAll($id)
+    /**
+    * @param int $id
+    * @return Todo
+    */
+    public function getAll($id): Todo
     {
         return $this->where('user_id', $id)->get();
     }
@@ -79,6 +86,7 @@ DB関連の処理に関しては、以上で問題なく動作をさせること
 
 ```php
 <?php
+decalre(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -87,7 +95,11 @@ use App\Todo;
 use Auth;  // 追記
 
 // 省略
-    public function index()
+    /**
+    * index function
+    * @return Response
+    */
+    public function index(): Response
     {
         $todos = $this->todo->getAll(Auth::id());  // 追記
         return view('todo.index', compact('todos'));
@@ -99,7 +111,7 @@ use Auth;  // 追記
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): Response
     {
         $input = $request->all();
         $input['user_id'] = Auth::id();  // 追記
