@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Schema;
     public function up()
     {
         Schema::table('todos', function (Blueprint $table) {
-            $table->integer('user_id');  // 追記
+            $table->unsignedBigInteger('user_id');  // 追記
         });
     }
 
@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Schema;
     public function down()
     {
         Schema::table('todos', function (Blueprint $table) {
-            $table->integer('user_id');  // 追記
+            $table->unsignedBigInteger('user_id');  // 追記
         });
     }
 }
@@ -47,8 +47,9 @@ use Illuminate\Support\Facades\Schema;
 何をどこに追加しているかというと`todos table` に対して`user_id` というカラムを追加してます。
 
 todoを作成する際にログインしているユーザー固有の`id` をtodos tableに格納しtodos tableとusers tableを関連づけます。
- 
- 
+なぜ`unsignedBigInteger`なのか？これは、`users`というtableの`id`の型に合わせているためです。
+
+  
 新たに`migration file` を追加した際は、必ずそれを`DB` へ反映させるために`php artisan migrate` を実行します。このコマンドを実行することによって`DB` への反映が完了します。
 
 DB関連の処理に関しては、以上で問題なく動作をさせることができるのでDBに保存する`Controller` と`Model` の処理に移行します。
