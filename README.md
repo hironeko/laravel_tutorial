@@ -55,5 +55,5 @@ Vue  : 2.5.*
 
 - 第6章 Vue.jsを入れてみよう
   - 6-1 yarn install & vue-routerの導入
-  - ６−2 開発は、hot!!!
+  - 6-2 開発は、hot!!!
   - 6-3 contorollerをAPIに変えつつテストを書く!
