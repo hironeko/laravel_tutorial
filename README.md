@@ -51,3 +51,9 @@ Vue  : 2.5.*
   
 - 第5章 ユーザーとデータの紐付け
   - [5-1] [リレーションとは?](https://github.com/hironeko/laravel_original_tutorial/blob/master/lesson_md/Fifth_5-1.md)
+
+
+- 第6章 Vue.jsを入れてみよう
+  - 6-1 yarn install & vue-routerの導入
+  - ６−2 開発は、hot!!!
+  - 6-3 contorollerをAPIに変えつつテストを書く!
