@@ -19,7 +19,7 @@ ES6を知っていること事前に学習していること
 ## さっそくinstallしbuildしましょう
 
 ターミナル上で以下を実行しましょう。
-```
+```shell
 yarn install
 yarn hot
 ```
@@ -33,3 +33,14 @@ yarn hot
 ここまでに作成したものをAPIに変更し実行を可能します。
 
 ただし今回は、`Vuex`は使用しません。
+
+
+## 追加で使用するものをinstallしましょう
+
+```shell
+yarn add vue-router vuetify material-design-icons-iconfont --dev
+```
+
+cssのフレームワークを今回使用します。またVue側でroutingを実現させるために`vue-router`をinstallします
+
+
