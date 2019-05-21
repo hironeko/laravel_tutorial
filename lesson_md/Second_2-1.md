@@ -1,7 +1,8 @@
 # データの投入
 
-## DBの設定を行います。
-まずは、今回のLaravel用の*database*を作成します。
+## DB の設定を行います。
+
+まずは、今回の Laravel 用の*database*を作成します。
 
 ```shell
 mysql -u root -p # 適宜変更してください
@@ -9,18 +10,19 @@ passwaord:
 mysql > create database todos;
 ```
 
-コマンドを実行したあとにQuery OKと表示されたら問題ありません。
+コマンドを実行したあとに Query OK と表示されたら問題ありません。
 作成されたかどうか確認するには、以下のコマンドを実行したら確認できます。
 
 ```shell
 mysql > show databases;
 ```
-上記コマンドを実行するとdatabaseの一覧が表示され、そこにtodosが表示されていれば問題ありません
 
+上記コマンドを実行すると database の一覧が表示され、そこに todos が表示されていれば問題ありません
 
-## Laravel側でDBを使用するための記述を行う
-- Laravelに今回使用するDBは、XXXだよとDBの接続情報を教えてあげる必要があります
-- Laravelのプロジェクト直下に*.env*というfileがありますがこれに情報を書いていきます
+## Laravel 側で DB を使用するための記述を行う
+
+- Laravel に今回使用する DB は、XXX だよと DB の接続情報を教えてあげる必要があります
+- Laravel のプロジェクト直下に*.env*という file がありますがこれに情報を書いていきます
 
 ```shell
 DB_CONNECTION=mysql
@@ -32,21 +34,23 @@ DB_PASSWORD=your_password    # 編集 DBを作成した際のUserのPassword
 # 省略
 ```
 
-上記のように変更することによってLaravelで先ほど作成したdatabaeseが使用可能になります。
+上記のように変更することによって Laravel で先ほど作成した databaese が使用可能になります。
 
+## 次に table の内容をコードとして書くことをしていきます
 
-## 次にtableの内容をコードとして書くことをしていきます
 今回はマイグレーションというバージョン管理のような機能を使ってテーブルを作成します。
-  - マイグレーションファイル自体が管理機能を有しているわけでなく機能がバージョン管理のような機能として働いていると考えてください。
-  - migration fileというものに書き込んでいきます。
 
-fileの作成を行うコマンド
+- マイグレーションファイル自体が管理機能を有しているわけでなく機能がバージョン管理のような機能として働いていると考えてください。
+- migration file というものに書き込んでいきます。
+
+file の作成を行うコマンド
+
 ```shell
 php artisan make:migration create_todos_table
 ```
 
-上記コマンドを実行したら*database/migrations/20yy_mm_dd_xxxxxx_create_todos_table.php*というfileが作成されていると思います。
-この作成されたfileの編集を行いtableの構成を書いていきます。
+上記コマンドを実行したら*database/migrations/20yy_mm_dd_xxxxxx_create_todos_table.php*という file が作成されていると思います。
+この作成された file の編集を行い table の構成を書いていきます。
 
 ```php
 <?php
@@ -83,13 +87,13 @@ class CreateTodosTable extends Migration
 }
 ```
 
-上記のように編集が終わったら実際にDBに反映をします。
+上記のように編集が終わったら実際に DB に反映をします。
 
 ```shell
 php artisan migrate
 ```
 
-このコマンドを実行し下記のような表示がされたら問題なくdatabasesの反映が終わったことになります。
+このコマンドを実行し下記のような表示がされたら問題なく databases の反映が終わったことになります。
 
 ```shell
 Migration table created successfully.
@@ -101,24 +105,34 @@ Migrating: 20yy_mm_dd_xxxxxx_create_todos_table
 Migrated:  20yy_mm_dd_xxxxxx_create_todos_table
 ```
 
-## DBに初期データの投入を行います
-- seederという機能を使用してdatabaseに初期データを投入するためのfileの作成と記述を行います。
+## DB に初期データの投入を行います
+
+- seeder という機能を使用して database に初期データを投入するための file の作成と記述を行います。
 
 ```shell
 php artisan make:seeder TodosTableSeeder
 ```
 
 上記コマンド実行することによって*database/seeds/*以下に作成されます。
-作成されたfileに対して編集を行います。以下に記載あるように追加と記載ある範囲を写経しましょう。
-
+作成された file に対して編集を行います。以下に記載あるように追加と記載ある範囲を写経しましょう。
 
 ```php
 <?php
+declare(strict_types=1);
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
+/**
+* TodoTableSeeder class
+*/
 class TodosTableSeeder extends Seeder
 {
+    /**
+    * @const string table name
+    */
+    const TABLE_NAME = 'todos';
+
     /**
      * Run the database seeds.
      *
@@ -126,30 +140,29 @@ class TodosTableSeeder extends Seeder
      */
     public function run()
     {
-        // ここから追記
-        DB::table('todos')->truncate();
+        $currentDatetime = Carbon::create('2018-01-01 23:59:59');
+
+        DB::table(self::TABLE_NAME)->truncate();
 
         DB::table('todos')->insert([
             [
                 'title'      => 'フレームワークカリキュラムを終わらせる',
-                'created_at' => '2018-01-01 23:59:59',
-                'updated_at' => '2018-01-04 23:59:59',
+                'created_at' => $currentDatetime,
+                'updated_at' => $currentDatetime,
             ],
             [
                 'title'      => 'Unixオペレーションに慣れる',
-                'created_at' => '2018-02-01 00:00:00',
-                'updated_at' => '2018-02-05 00:00:00',
+                'created_at' => $currentDatetime,
+                'updated_at' => $currentDatetime,
             ],
         ]);
-        
-        // ここまで追記
     }
 }
 ```
 
-上記のように変更が終わったらこの新たに追加したClassを使用するために同じ階層に存在する。*DatabaseSeeder.php*というfileに追記を行います。
-*run*というメソッドの中に先ほど手を加えた*Class*のClass名を書いてあげます。
-そうすることによって作成したSeederを実行しデータの投入が可能になります。
+上記のように変更が終わったらこの新たに追加した Class を使用するために同じ階層に存在する。*DatabaseSeeder.php*という file に追記を行います。
+*run*というメソッドの中に先ほど手を加えた*Class*の Class 名を書いてあげます。
+そうすることによって作成した Seeder を実行しデータの投入が可能になります。
 
 ```php
 <?php
@@ -170,15 +183,17 @@ class DatabaseSeeder extends Seeder
     }
 }
 ```
-## DBに反映させる
-変更が完了したら作成したfileをDBに反映させるためのコマンドを実行します。
+
+## DB に反映させる
+
+変更が完了したら作成した file を DB に反映させるためのコマンドを実行します。
 
 ```shell
 php artisan db:seed
 Seeding: TodosTableSeeder
 ```
 
-コマンド実行後に上記のような表記がされたら問題なくDBに反映が行われています。
+コマンド実行後に上記のような表記がされたら問題なく DB に反映が行われています。
 
 ## おまけ
 
@@ -190,4 +205,5 @@ php artisan db:seed
 # 以下と同義です
 php artisan migrate --seed
 ```
-実行することにより結果migration fileの実行とseed fileの実行を同時に行うことが可能になります。 
+
+実行することにより結果 migration file の実行と seed file の実行を同時に行うことが可能になります。

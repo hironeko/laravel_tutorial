@@ -1,10 +1,10 @@
-# PHPUnitの実装
+# PHPUnit の実装
 
-- Laravelに最初から付随しているPHPUnitを使用します。
+- Laravel に最初から付随している PHPUnit を使用します。
 
 ## 早速実行してみましょう
 
-Laravelが存在しているディレクトリにて以下のコマンドを実行してみてください。
+Laravel が存在しているディレクトリにて以下のコマンドを実行してみてください。
 
 ```shell
 ./vendor/bin/phpunit
@@ -27,7 +27,7 @@ OK (2 tests, 2 assertions)
 `tests/Unit/ExampleTest.php`
 です。
 
-Laravelに付属しているPHPUnitを使用してのテストを書く場合は、上記の場所に格納します。またそれぞれ意味があるのでそれらも一緒に把握をしていきましょう。
+Laravel に付属している PHPUnit を使用してのテストを書く場合は、上記の場所に格納します。またそれぞれ意味があるのでそれらも一緒に把握をしていきましょう。
 
 - `Feature`
 
@@ -53,7 +53,6 @@ Laravelに付属しているPHPUnitを使用してのテストを書く場合は
 
 なのでこのカリキュラムでは、まず最初に`Feature` にてリクエスト関連のテストを行い、`Unit` にて機能レベルのテストを行なっていきたいと思います。
 
-
 ### テストコードを読んでみる
 
 - では、早速テストのコードを見ていきましょう。
@@ -77,12 +76,10 @@ class ExampleTest extends TestCase
     /**
     * @const int 成功時のステータスコード
     */
-    const SUCCESS_STATUS_CODE = 200;
-    
+    const SUCCESS_STATUS_CODE = 200;  // 定数は、必ずclass内に書きます。
+
     /**
-     * A basic test example.
-     *
-     * @return void
+     * topページの検証
      */
     public function testBasicTest()
     {
@@ -98,7 +95,7 @@ class ExampleTest extends TestCase
 
 `public function testBasicTest` の中を見ていきましょう。
 
-PHPUnitの基本としてメソッドを書く際には、二通りの書き方が存在してます。(versionで異なる)
+PHPUnit の基本としてメソッドを書く際には、二通りの書き方が存在してます。(version で異なる)
 
 `test` という接頭辞から`function` を始める場合
 `function` 名に`test` と含めずにアノテーションでテストコードですよと宣言する場合
@@ -125,9 +122,9 @@ class ExampleTest extends TestCase
     * @const int 成功時のステータスコード
     */
     const SUCCESS_STATUS_CODE = 200;
-    
+
     /**
-     * A basic test example.
+     * topページの検証
      * @test  // 追記
      */
     public function basicTest() // 変更
@@ -153,19 +150,18 @@ OK (2 tests, 2 assertions)
 ```
 
 問題なくテストが行えましたね。
-これで2通りの書き方が学べました。
+これで 2 通りの書き方が学べました。
 では、次に中身を見ていきましょう。
 
 - `$response = $this->get('/');`
 
-まず`$this->get('/')` ですがこれは、get リクエストで引数のURIにアクセスするものになります。その結果の返り値を`$response` に格納してます。
+まず`$this->get('/')` ですがこれは、get リクエストで引数の URI にアクセスするものになります。その結果の返り値を`$response` に格納してます。
 これは通常のリクエスト結果が格納されているに等しいと認識して今は、問題ありません。
 その返り値に対して`$response->assertStatus(200)` という記述が書かれてます。これは、リクエスト結果のステータスを確認してます。
 
 `assetStatus` これは、`responceのstatusには、()内の値を期待する` ということです。つまり()内の指定の数値以外は、全てが異常系という扱いになります。それは、機能としてよろしくないということになります。
 
-なのでここでは、問題なくhttp通信でのGETリクエストが問題なく行われているかどうかのテストを行なっています。
-
+なのでここでは、問題なく http 通信での GET リクエストが問題なく行われているかどうかのテストを行なっています。
 
 `tests/Unit/ExampleTest.php` の中を見ていきましょう。
 
@@ -178,12 +174,13 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+* ExampleTest class
+*/
 class ExampleTest extends TestCase
 {
     /**
      * A basic test example.
-     *
-     * @return void
      */
     public function testBasicTest()
     {
@@ -199,21 +196,19 @@ class ExampleTest extends TestCase
 こちらの方では、特段何かしらに対してのテストかは、言及しませんが`assertTrue` という箇所は、覚えておきましょう。
 他のテストを作成する上で使うことが想定されるメソッドになっています。
 
-
-
 ## 実践していきましょう
 
 ### `Feature` のテスト
 
-今回作成したTodo Applicationへのテストとなります。
+今回作成した Todo Application へのテストとなります。
 最初に`Feature` 側に対してのテストを実装していきたいと思います。
 
 ```shell
 php artisan make:test TodoTest
 ```
 
-`tests/Feature/` 以下にTodoTest.phpが作成されましたでしょうか？
-作成されたFileは、以下のようになっているはずです。
+`tests/Feature/` 以下に TodoTest.php が作成されましたでしょうか？
+作成された File は、以下のようになっているはずです。
 
 ```php
 <?php
@@ -224,12 +219,13 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+/**
+* TodoTest class
+*/
 class TodoTest extends TestCase
 {
     /**
      * A basic test example.
-     *
-     * @return void
      */
     public function testBasicTest()
     {
@@ -238,21 +234,21 @@ class TodoTest extends TestCase
 }
 ```
 
-この作成されたFileの`fucntion` を編集し`TodoController` の`index` メソッドに対してテストを書きたいと思います。
+この作成された File の`fucntion` を編集し`TodoController` の`index` メソッドに対してテストを書きたいと思います。
 
 ```php
     /**
     * @const int 成功時のステータスコード
     */
     const SUCCESS_STATUS_CODE = 200;
-    
+
     /**
     * @const string アクセスするURI
     */
     const ACCESS_URI = '/todo';
-    
+
     /**
-     * A basic test example.
+     * todoページの検証
      * @test  // 追記
      */
     public function indexTest()  // 変更
@@ -269,8 +265,8 @@ class TodoTest extends TestCase
 ./vendor/bin/phpunit tests/Feature/TodoTest.php
 ```
 
-最初に実行したコマンドと異なり今回は、Fileの指定を行なっています。
-こうすることにより指定したFileのみテストが実行可能になります。
+最初に実行したコマンドと異なり今回は、File の指定を行なっています。
+こうすることにより指定した File のみテストが実行可能になります。
 
 では、結果はどうなりましたでしょうか？
 問題なく通過したのではないでしょうか？
@@ -278,7 +274,7 @@ class TodoTest extends TestCase
 > もし`F`という文言があったならば`MySQL` の起動の有無を確認してください。
 
 これで`index` メソッドに対してのテストは、行われました。
-`index` メソッドにより表示されるページというのは、Todoの一覧画面となってますが実際にどんな値が渡っているかどうかは、テストしてません。
+`index` メソッドにより表示されるページというのは、Todo の一覧画面となってますが実際にどんな値が渡っているかどうかは、テストしてません。
 
 このまま他の画面に対してのテストも実装していきたいのですが今の状態でのテストの実装は、`create` メソッドまでになります。
 というのもこれ以降の画面に対しての処理には、データが必要になってきますのでテストで使用する`DB` の設定を行いたいと思います。
@@ -295,13 +291,12 @@ class TodoTest extends TestCase
 }
 ```
 
-
 ## テスト用の`DB` 設定を行う
 
-- テスト用のDBの作成を先に行ってください。
-  - 作成というのは、mysqlサーバーに接続し`create database test_db;` を実行し作成をするということです。
+- テスト用の DB の作成を先に行ってください。
+  - 作成というのは、mysql サーバーに接続し`create database test_db;` を実行し作成をするということです。
 - ネット上には、いくつかの設定方法がありますが一旦は、わかりやすいもので設定を行いたいと思います。
-`phpunit.xml` を編集します。
+  `phpunit.xml` を編集します。
 
 ```xml
 <!-- 省略 -->
@@ -311,13 +306,14 @@ class TodoTest extends TestCase
   </php>
 </phpunit>
 ```
+
 上記のように追加してください。
 
 次にテストが実行される際に`migrate` が走るように設定を行います。
 
-そのために編集、追記を行うFileは、以下の2個です。
+そのために編集、追記を行う File は、以下の 2 個です。
 `tests/CreatesApplication.php`
-`tests/TestCase.php`  
+`tests/TestCase.php`
 
 `tests/CreateApplication.php` を編集します。
 
@@ -331,7 +327,10 @@ use Illuminate\Contracts\Console\Kernel;
 use Artisan; // 追記
 use App\Todo; // 追記
 
-trait CreatesApplication
+/**
+* CreateApplication trait
+*/
+trait CreateApplication
 {
     /**
      * Creates the application.
@@ -351,8 +350,9 @@ trait CreatesApplication
     /**
     * artisanコマンドを実行しmigrationを行う
     * 実行後テストに必要なデータを投入する
+    * @return void
     */
-    public function prepareForTests()
+    public function prepareForTests(): void
     {
         Artisan::call('migrate');
         if(!Todo::all()->count()){
@@ -364,11 +364,11 @@ trait CreatesApplication
 ```
 
 - 解説
-`use Artisan;`
-Laravelの学習をするにあたり何度も出てきた`Artisan` コマンドを使えるようにするための記述です。
+  `use Artisan;`
+  Laravel の学習をするにあたり何度も出てきた`Artisan` コマンドを使えるようにするための記述です。
 
 `use App\Todo;`
-modelに当たる`app/Todo.php` を使用できるようにし`table` への操作を行うのが目的です。
+model に当たる`app/Todo.php` を使用できるようにし`table` への操作を行うのが目的です。
 
 それぞれの使い方は、`public function prepareForTests` の中をご覧ください。
 
@@ -390,7 +390,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, DatabaseTransactions;
-    
+
     /**
     * setUp
     */
@@ -407,6 +407,7 @@ abstract class TestCase extends BaseTestCase
 ```shell
 ./vendor/bin/phpunit
 ```
+
 問題なく完了したら次に`DB` の中を確認してみましょう。
 
 テスト用の`DB` に対して`seed` まで完了できていることが確認できたら問題ありません。
@@ -415,21 +416,21 @@ abstract class TestCase extends BaseTestCase
 
 `tests/TestCase.php`
 
- - `use Illuminate\Foundation\Testing\DatabaseTransactions`
-まずは、`Transaction` という物の説明をします。
-よく例え話に出てくるのは、`ATM` ですがもっと身近なもので例えるなら`自動販売機` になります。
-自動販売機というのは、お金を入れ > 商品を選び(ボタンを押す) > 受け取るまでが一つの処理の単位として考えられます。
-お金は入れたが商品を選ばずに返却レバーを押すとお金が返ってきますよね？
-また商品選択を行なった後商品が出てくる際にお金が自動販売機のお金をストックする箱に落ちる音が聞こえると思います。
-一つの処理の単位とみなせるということは、どこかで問題が起きても取り消せる状態でなければいけないということです。
-`DB` に対しての処理では、このようなことに対処するために`Transaction` という仕組みをあらかじめ定義することができるようになってます。
-`DB` 的な言葉に変えれ`DB` に対しての一つ以上の更新ないし挿入処理のことをさします。
-今回この`Transaction` を使用する理由は、この後に説明すること、また次章で実装することに大きく関わってきます。
-`tests/CreateApplication.php` で`migration、seed` を記述したのですがそれ以外の`DB` に対しての挿入・更新の一連の処理をテストが終わった際になかったことにしテスト用の`DB` を綺麗な状態に保つためです。
-`class` 内にて`use` をしてあげることにより動作してくれるようになります。
+- `use Illuminate\Foundation\Testing\DatabaseTransactions`
+  まずは、`Transaction` という物の説明をします。
+  よく例え話に出てくるのは、`ATM` ですがもっと身近なもので例えるなら`自動販売機` になります。
+  自動販売機というのは、お金を入れ > 商品を選び(ボタンを押す) > 受け取るまでが一つの処理の単位として考えられます。
+  お金は入れたが商品を選ばずに返却レバーを押すとお金が返ってきますよね？
+  また商品選択を行なった後商品が出てくる際にお金が自動販売機のお金をストックする箱に落ちる音が聞こえると思います。
+  一つの処理の単位とみなせるということは、どこかで問題が起きても取り消せる状態でなければいけないということです。
+  `DB` に対しての処理では、このようなことに対処するために`Transaction` という仕組みをあらかじめ定義することができるようになってます。
+  `DB` 的な言葉に変えれ`DB` に対しての一つ以上の更新ないし挿入処理のことをさします。
+  今回この`Transaction` を使用する理由は、この後に説明すること、また次章で実装することに大きく関わってきます。
+  `tests/CreateApplication.php` で`migration、seed` を記述したのですがそれ以外の`DB` に対しての挿入・更新の一連の処理をテストが終わった際になかったことにしテスト用の`DB` を綺麗な状態に保つためです。
+  `class` 内にて`use` をしてあげることにより動作してくれるようになります。
 
 - `public function setup(){ ~ }`
-まずは、記述の確認をしましょう。
+  まずは、記述の確認をしましょう。
 
 ```php
 // 省略
@@ -443,51 +444,51 @@ abstract class TestCase extends BaseTestCase
     }
 // 省略
 ```
-`function` 内に`parent::setup();` という記述がありますがこれを書かなければいけない理由は、このclassが継承している`BaseTestCase` に記載があるメソッドを使用しますよという宣言になっています。
+
+`function` 内に`parent::setup();` という記述がありますがこれを書かなければいけない理由は、この class が継承している`BaseTestCase` に記載があるメソッドを使用しますよという宣言になっています。
 また`setup` という名称になっている理由も継承元のメソッドを使う際は、同じ名称にしなければならないというルールだからです。このメソッドはなんのためのメソッドかというとテストを実行する前に行いたい処理をまとめるメソッドになっています。
 もし仮に`parent::setup();` を書いていなかったら動きません。
 
 - `$this->prepareForTests();`
-いきなり`$this->` と出てきました。これは、本来class自身をオブジェクトとして使う際に出てきます。
+  いきなり`$this->` と出てきました。これは、本来 class 自身をオブジェクトとして使う際に出てきます。
 
-例えば`class Hoge` というのがありそのclass内に`public function fuga(){ ~ }` と`public function test(){ ~ }` と2種類のメソッドが存在したとします。`fuga` で`test` を使用したいという場面があった場合に`$this->test();` と書きます。
+例えば`class Hoge` というのがありその class 内に`public function fuga(){ ~ }` と`public function test(){ ~ }` と 2 種類のメソッドが存在したとします。`fuga` で`test` を使用したいという場面があった場合に`$this->test();` と書きます。
 
 このように書くことによって`fuga` で`test` を使用可能になります。
 
-今回の場合なのですがこのclass内にて`prepareForTests` というメソッドは、定義されてません。では、どこにあるというのでしょうか？
+今回の場合なのですがこの class 内にて`prepareForTests` というメソッドは、定義されてません。では、どこにあるというのでしょうか？
 その答えは、`use CreateApplication` と書かれた箇所に存在してます。
 
 では、この流れで`tests/CreateApplication.php` についても学んでいきましょう。
 
 - `tests/CreateApplication.php`
 
-このfileを編集した際の追記箇所に`prepareForTests` というメソッドが存在してます。先ほどの`tests/TestCase.php` の解説の中で出てきた`$this->prepareForTests();` は、このメソッドをさしてます。
-ではなぜ継承してないのに自身のclass内にも定義してないのに使えるのか？
+この file を編集した際の追記箇所に`prepareForTests` というメソッドが存在してます。先ほどの`tests/TestCase.php` の解説の中で出てきた`$this->prepareForTests();` は、このメソッドをさしてます。
+ではなぜ継承してないのに自身の class 内にも定義してないのに使えるのか？
 
-それは、`trait` というのは、単純にいくつかのメソッド(機能)群をまとめたものになります。traitは、`use` してあげることによりそのclass内のメンバーとなることができます。またclassが継承している親classのメソッドよりも優先されます。
+それは、`trait` というのは、単純にいくつかのメソッド(機能)群をまとめたものになります。trait は、`use` してあげることによりその class 内のメンバーとなることができます。また class が継承している親 class のメソッドよりも優先されます。
 
-このtraitという機能は、コードの再利用、また多重継承などのにより起こりうる複雑な問題なども解決してくれます。
+この trait という機能は、コードの再利用、また多重継承などのにより起こりうる複雑な問題なども解決してくれます。
 
-ただデメリットも存在していますがここでは、割愛します。興味がある方は、以下の参照URLからご確認ください。
+ただデメリットも存在していますがここでは、割愛します。興味がある方は、以下の参照 URL からご確認ください。
 
-> [参照URL](https://secure.php.net/manual/ja/language.oop5.traits.php)
+> [参照 URL](https://secure.php.net/manual/ja/language.oop5.traits.php)
 
-このtraitは、Laravelでももちろんですが多くの場面で使用されてますので`use` = `trait` の可能性もあるんじゃね？って考えるようにしましょう。
+この trait は、Laravel でももちろんですが多くの場面で使用されてますので`use` = `trait` の可能性もあるんじゃね？って考えるようにしましょう。
 もちろんそれ以外の場合もありますのでこの限りでは、ありません。
 
 - `public function prepareForTests(){ ~ }`
-file上部に記載ある`use` に関しては、このメソッドで使用するものになりますのでまとめて説明します。
-まずこのfunction内で行われているのは、`DB` への`migrate` と`seed` です。
-テストで使用するための`defaultのデータ`と`table` の作成を行なっています。
-そのためDBに対してのmigrateを実行するには、`artisan` コマンドが使えなければなりません。なので`use Artisan;` と記述し使えるよにしてます。
-また今回は、`Todo table` に対してテストを実行する毎に`seed` を行う必要がないので`Todo table` にデータが存在しているかの記述を加えてます。
-もし存在してなければ`seed` が走るようになってます。
-
+  file 上部に記載ある`use` に関しては、このメソッドで使用するものになりますのでまとめて説明します。
+  まずこの function 内で行われているのは、`DB` への`migrate` と`seed` です。
+  テストで使用するための`defaultのデータ`と`table` の作成を行なっています。
+  そのため DB に対しての migrate を実行するには、`artisan` コマンドが使えなければなりません。なので`use Artisan;` と記述し使えるよにしてます。
+  また今回は、`Todo table` に対してテストを実行する毎に`seed` を行う必要がないので`Todo table` にデータが存在しているかの記述を加えてます。
+  もし存在してなければ`seed` が走るようになってます。
 
 ## まとめ
 
-- どの章よりも長くなってしまいましたがDBへの処理の設定を終えたところで次章に持ち越したいと思います。
+- どの章よりも長くなってしまいましたが DB への処理の設定を終えたところで次章に持ち越したいと思います。
 
 - また難易度がグッと上がったように感じますが今までに習ってきたことの延長線上ですし`テスト` に限った内容ではないことを忘れないでおきましょう。
 
-- 次章：今回やっていない`Unit` 以下に配置するテストの実装と`Feature` 以下にあるfileのテストの続きとなります。
+- 次章：今回やっていない`Unit` 以下に配置するテストの実装と`Feature` 以下にある file のテストの続きとなります。

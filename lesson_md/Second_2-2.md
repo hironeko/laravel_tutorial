@@ -1,4 +1,4 @@
-# Controllerの作成
+# Controller の作成
 
 アプリケーションの要となる*Controller*が必要なので作成を行います。以下のコマンドを実行してください。
 
@@ -7,7 +7,6 @@ php artisan make:controller TodoController --resource
 ```
 
 作成が完了したら*app/Http/Controllers*内に存在する*TodoController.php*を確認してください。
-以下のような中身になっているかと思います。
 
 ```php
 <?php
@@ -23,9 +22,16 @@ use Illuminate\Http\Request;
 class TodoController extends Controller
 {
     /**
+    * constructor function
+    */
+    public function __construct()
+    {
+    }
+
+    /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -35,7 +41,7 @@ class TodoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -57,7 +63,7 @@ class TodoController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -68,9 +74,9 @@ class TodoController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         //
     }
@@ -80,9 +86,9 @@ class TodoController extends Controller
      *
      * @param  Request  $request
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         //
     }
@@ -91,28 +97,22 @@ class TodoController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
         //
     }
 }
 ```
 
+確認が完了したら上記のようになるように手を加えましょう。
 色々なメソッドの記載があります。
-phpでは、classに属する関数をメソッドと呼びます。では、プログラミングの世界の慣習として*Hello word*という文言を出力させてみましょう。
-
+php では、class に属する関数をメソッドと呼びます。では、プログラミングの世界の慣習として*Hello word*という文言を出力させてみましょう。
 
 ```php
 <?php
-
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-
-class TodoController extends Controller
-{
+// 省略
     /**
      * Display a listing of the resource.
      *
@@ -120,16 +120,16 @@ class TodoController extends Controller
      */
     public function index()
     {
-        //
         return "Hello world!!";
     }
 // 以下省略
 ```
 
 ## 表示させるためにルーティングという機能に手を加えます。
-Controllerの編集が終わりましたら次にこのControllerを利用するためにルーティング機能に手を加えます。
-開くfileは、*route*フォルダ以下にある。*web.php*を開きます。中身は、以下のようになってます。
-  
+
+Controller の編集が終わりましたら次にこの Controller を利用するためにルーティング機能に手を加えます。
+開く file は、*route*フォルダ以下にある。*web.php*を開きます。中身は、以下のようになってます。
+
 ```php
 <?php
 
@@ -150,7 +150,7 @@ Route::get('/', function () {
 Route::resource('todo', 'TodoController');  // 追記
 ```
 
-では、作成したものが反映されているか確認するためにLaravelのローカルサーバを立ち上げましょう。
+では、作成したものが反映されているか確認するために Laravel のローカルサーバを立ち上げましょう。
 
 ```shell
 php artisan serve
@@ -158,4 +158,4 @@ php artisan serve
 
 ブラウザに*http://127.0.0.1:8000/todo* と入れてアクセスしてください。
 画面に"Hello world!!"と表示されたなら問題ありません。
-これでcontrollerとroute fileの関連性がイメージできたかと思います。
+これで controller と route file の関連性がイメージできたかと思います。
