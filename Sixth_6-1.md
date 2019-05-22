@@ -46,4 +46,22 @@ if (is_null($item)) {
 }
 ```
 
+## sql
+
+頻出コマンド
+```
+show databases;
+show tables;
+show tables like '%nanika%';
+show index from table_name;
+explain select * from hoge where id = n and created_at = 'yyyy-mm-dd H:i:s';
+desc table_name;
+```
+
+頻出用語
+```
+実行計画
+index（索引）
+```
+
 
